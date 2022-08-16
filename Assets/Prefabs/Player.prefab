@@ -11,10 +11,12 @@ GameObject:
   - component: {fileID: 4506332797500398621}
   - component: {fileID: 4506332797500398620}
   - component: {fileID: 4506332797500398619}
+  - component: {fileID: 392593777852335917}
   - component: {fileID: 5084612366442530744}
   - component: {fileID: 4506332797500398618}
   - component: {fileID: 4506332797500398617}
   - component: {fileID: 4506332797500398622}
+  - component: {fileID: 1893211274587259570}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -107,6 +109,29 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 27a9f4204a430014584922f679b50008
   hasSpawned: 0
+--- !u!114 &392593777852335917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4506332797500398616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 169a1f6a466aade4ebe96237ef2748f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  matchID: 
+  playerIndex: 0
+  currentMatch:
+    matchID: 
+    publicMatch: 0
+    inMatch: 0
+    matchFull: 0
+    players: []
+  playerLobbyUI: {fileID: 0}
 --- !u!114 &5084612366442530744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,6 +221,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1893211274587259570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4506332797500398616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d17e718851449a6879986e45c458fb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!1 &4506332798465762106
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,7 +267,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4506332797500398621}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4506332798465762108
 SpriteRenderer:

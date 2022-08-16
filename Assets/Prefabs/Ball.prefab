@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9156033187155126146
 SpriteRenderer:
@@ -157,8 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  Friction: 22
-  MaxSpeed: 4.5
+  Friction: 20
   rb2D: {fileID: 9156033187155126144}
   Ball: {fileID: 9156033187155126150}
 --- !u!114 &6195090531736650507
@@ -189,9 +188,9 @@ MonoBehaviour:
   catchupMultiplier: 0.1
   onlySyncOnChange: 1
   bufferResetMultiplier: 5
-  positionSensitivity: 0.01
-  rotationSensitivity: 0.01
-  scaleSensitivity: 0.01
+  positionSensitivity: 0
+  rotationSensitivity: 0
+  scaleSensitivity: 0
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}

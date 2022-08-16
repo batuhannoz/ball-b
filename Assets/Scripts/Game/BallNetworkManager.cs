@@ -10,17 +10,10 @@ public class BallNetworkManager : NetworkBehaviour
     [SerializeField] GameObject Ball;
     
     #region Server
-    [Server] 
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-        rb2D.simulated = true;
-        Ball.transform.position = new Vector3(0,0,-1); 
-    }
-
     [Server]
     private void Start() {
         rb2D = GetComponent<Rigidbody2D>();
+        Ball.transform.position = new Vector3(0,0,-1); 
     }
 
     [Server]
