@@ -7,12 +7,8 @@ public class GameNetworkManager : NetworkManager
     GameManager gameManager;
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         base.OnServerAddPlayer(conn);
-    }
-
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-        //gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        gameManager.AddPlayer(conn.identity.gameObject);
     }
 }
