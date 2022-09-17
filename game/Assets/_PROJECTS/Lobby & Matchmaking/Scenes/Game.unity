@@ -818,8 +818,9 @@ MonoBehaviour:
   syncInterval: 0.1
   LeftSpawnPoint: {fileID: 786270578}
   RightSpawnPoint: {fileID: 1054705959}
-  LeftScore: {fileID: 2094731069}
-  RightScore: {fileID: 1687945585}
+  LeftTMPro: {fileID: 2094731069}
+  RightTMPro: {fileID: 1687945585}
+  matchIDChange: {fileID: 1526955826}
   Ball: {fileID: 9156033186590279550}
 --- !u!114 &1330290719
 MonoBehaviour:

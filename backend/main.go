@@ -25,6 +25,10 @@ type JoinMatchRequest struct {
 	MatchID string `json:"match_id"`
 }
 
+type MatchOverRequest struct {
+	MatchID string `json:"match_id"`
+}
+
 type Match struct {
 	Port        int      `json:"port"`
 	MatchID     string   `json:"match_id"`
@@ -201,7 +205,21 @@ func Ready(ctx *fiber.Ctx) error {
 // TODO Close the Container of the Match
 
 func MatchOver(ctx *fiber.Ctx) error {
+	var req MatchOverRequest
+	err := ctx.BodyParser(&req)
+	if err != nil {
+		fmt.Println(err)
+	}
 
+	for _, match := range Matches {
+		if match.MatchID == req.MatchID {
+			err := DockerCli.ContainerRemove(context.Background(), match.ContainerID, types.ContainerRemoveOptions{})
+			if err != nil {
+				fmt.Println(err)
+			}
+		}
+	}
+	ctx.Status(http.StatusOK)
 	return nil
 }
 

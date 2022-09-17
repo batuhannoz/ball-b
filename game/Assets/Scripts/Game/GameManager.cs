@@ -15,12 +15,43 @@ public class GameManager : NetworkBehaviour
     }
     [SerializeField] Transform LeftSpawnPoint;
     [SerializeField] Transform RightSpawnPoint;
-    [SerializeField] TextMeshProUGUI LeftScore;
-    [SerializeField] TextMeshProUGUI RightScore;
+    [SerializeField] TextMeshProUGUI LeftTMPro;
+    [SerializeField] TextMeshProUGUI RightTMPro;
+    [SerializeField] MatchIDText matchIDChange;
     [SerializeField] GameObject Ball;
+    [SyncVar(hook = nameof(OnLeftScoreChange))] int LeftScore = 0;
+    [SyncVar(hook = nameof(OnRightScoreChange))] int RightScore = 0;
     List<GameObject> players = new List<GameObject>();
-    MatchIDText MatchIDText;
+
     private string MatchID;
+
+
+
+    public void OnLeftScoreChange(int oldScore, int newScore)
+    {
+        LeftTMPro.text = newScore.ToString();
+    }
+
+    public void OnRightScoreChange(int oldScore, int newScore)
+    {
+        RightTMPro.text = newScore.ToString();
+    }
+
+    public void RemovePlayer(GameObject playerObject)
+    {
+        if (players.Count == 1)
+        {
+            StartCoroutine(ContainerClose(new MatchData { match_id = MatchID }));
+        }
+        players.Remove(players.Find(x => x == playerObject));
+    }
+
+    private IEnumerator ContainerClose(MatchData matchData)
+    {
+        var postRequest = CreateRequest("http://52.29.249.251:3000/match_over", RequestType.POST, matchData);
+        yield return postRequest.SendWebRequest();
+    }
+
 
     public void AddPlayer(GameObject playerObject)
     {
@@ -29,29 +60,33 @@ public class GameManager : NetworkBehaviour
 
     public void IncreaseRight()
     {
-        int NewPoint = int.Parse(RightScore.text);
-        NewPoint++;
-        RightScore.text = NewPoint.ToString();
+        RightScore++;
         restartGame();
     }
 
     public void IncreaseLeft()
     {
-        int NewPoint = int.Parse(LeftScore.text);
-        NewPoint++;
-        LeftScore.text = NewPoint.ToString();
+        LeftScore++;
         restartGame();
     }
 
     private void restartGame()
     {
-        for (int i = 0; i < players.Count; i++) {
-            if (i % 2 == 0) {
-                
-            } 
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (i % 2 == 0)
+            {
+                players[i].transform.position = LeftSpawnPoint.position;
+            }
+            else
+            {
+                players[i].transform.position = RightSpawnPoint.position;
+            }
         }
+
         Ball.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-        Ball.transform.position = new Vector3(0,0,-1);
+        Ball.transform.position = new Vector3(0, 0, -1);
     }
 
     [ServerCallback]
@@ -66,7 +101,7 @@ public class GameManager : NetworkBehaviour
         yield return postRequest.SendWebRequest();
         var res = JsonUtility.FromJson<MatchData>(postRequest.downloadHandler.text);
         MatchID = res.match_id;
-        MatchIDText.MatchID = res.match_id;
+        matchIDChange.MatchID = res.match_id;
         GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManager>().StartClient();
     }
 
