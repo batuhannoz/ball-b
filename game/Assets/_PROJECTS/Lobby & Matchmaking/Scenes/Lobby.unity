@@ -2110,10 +2110,10 @@ MonoBehaviour:
   runInBackground: 1
   autoStartServerBuild: 1
   serverTickRate: 30
-  offlineScene: Assets/Scenes/Lobby.unity
+  offlineScene: Assets/_PROJECTS/Lobby & Matchmaking/Scenes/Lobby.unity
   onlineScene: Assets/_PROJECTS/Lobby & Matchmaking/Scenes/Game.unity
   transport: {fileID: 1427875672}
-  networkAddress: ec2-52-29-249-251.eu-central-1.compute.amazonaws.com
+  networkAddress: localhost
   maxConnections: 100
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 4506332797500398616, guid: 27a9f4204a430014584922f679b50008, type: 3}

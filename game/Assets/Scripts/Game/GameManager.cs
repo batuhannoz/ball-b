@@ -41,6 +41,7 @@ public class GameManager : NetworkBehaviour
     {
         if (players.Count == 1)
         {
+            Debug.Log("closing container");
             StartCoroutine(ContainerClose(new MatchData { match_id = MatchID }));
         }
         players.Remove(players.Find(x => x == playerObject));
@@ -48,7 +49,7 @@ public class GameManager : NetworkBehaviour
 
     private IEnumerator ContainerClose(MatchData matchData)
     {
-        var postRequest = CreateRequest("http://52.29.249.251:3000/match_over", RequestType.POST, matchData);
+        var postRequest = CreateRequest("http://18.185.12.220:3000/match_over", RequestType.POST, matchData);
         yield return postRequest.SendWebRequest();
     }
 
@@ -97,12 +98,11 @@ public class GameManager : NetworkBehaviour
     [ServerCallback]
     private IEnumerator ContainerReady()
     {
-        var postRequest = CreateRequest("http://52.29.249.251:3000/ready", RequestType.GET, null);
+        var postRequest = CreateRequest("http://18.185.12.220:3000/ready", RequestType.GET, null);
         yield return postRequest.SendWebRequest();
         var res = JsonUtility.FromJson<MatchData>(postRequest.downloadHandler.text);
         MatchID = res.match_id;
         matchIDChange.MatchID = res.match_id;
-        GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManager>().StartClient();
     }
 
     private UnityWebRequest CreateRequest(string path, RequestType type = RequestType.GET, object data = null)
