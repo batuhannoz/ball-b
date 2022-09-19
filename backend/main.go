@@ -72,7 +72,7 @@ func main() {
 
 		game := routes.Group("/") // TODO authorize game server
 		{
-			game.Get("/match_over", MatchOver) // TODO remove container
+			game.Post("/match_over", MatchOver) // TODO remove container
 			game.Get("/ready", Ready)
 		}
 	}
@@ -85,14 +85,7 @@ func main() {
 // TODO Start Container && Add Match to Matches && Redirect Player Specific port && IsPublic = true
 
 func HostPublic(ctx *fiber.Ctx) error {
-	var match = Match{
-		Port:        PortIndex,
-		MatchID:     EncodeToString(6),
-		Players:     nil,
-		ContainerID: "",
-		IsPublic:    true,
-	}
-
+	fmt.Println("host private")
 	resp, err := DockerCli.ContainerCreate(context.Background(), &container.Config{
 		ExposedPorts: nat.PortSet{
 			"7777": struct{}{},
@@ -111,12 +104,16 @@ func HostPublic(ctx *fiber.Ctx) error {
 	if err != err {
 		fmt.Println(err)
 	}
-	match.ContainerID = resp.ID
 
 	err = DockerCli.ContainerStart(context.Background(), resp.ID, types.ContainerStartOptions{})
 	if err != err {
 		fmt.Println(err)
 	}
+
+	match := <-ContainerReady
+	match.Port = PortIndex
+	match.ContainerID = resp.ID
+	match.IsPublic = true
 
 	PortIndex++
 
@@ -131,6 +128,7 @@ func HostPublic(ctx *fiber.Ctx) error {
 // TODO Start Container && Add Match to Matches && Redirect Player Specific port && IsPublic = false
 
 func HostPrivate(ctx *fiber.Ctx) error {
+	fmt.Println("host private")
 	resp, err := DockerCli.ContainerCreate(context.Background(), &container.Config{
 		ExposedPorts: nat.PortSet{
 			"7777": struct{}{},
@@ -173,6 +171,7 @@ func HostPrivate(ctx *fiber.Ctx) error {
 // TODO Redirect to Match by MatchID
 
 func JoinMatch(ctx *fiber.Ctx) error {
+	fmt.Println("join match")
 	var req JoinMatchRequest
 	err := ctx.BodyParser(&req)
 	if err != nil {
@@ -205,6 +204,7 @@ func Ready(ctx *fiber.Ctx) error {
 // TODO Close the Container of the Match
 
 func MatchOver(ctx *fiber.Ctx) error {
+	fmt.Println("Match Over")
 	var req MatchOverRequest
 	err := ctx.BodyParser(&req)
 	if err != nil {
@@ -213,7 +213,7 @@ func MatchOver(ctx *fiber.Ctx) error {
 
 	for _, match := range Matches {
 		if match.MatchID == req.MatchID {
-			err := DockerCli.ContainerRemove(context.Background(), match.ContainerID, types.ContainerRemoveOptions{})
+			err := DockerCli.ContainerRemove(context.Background(), match.ContainerID, types.ContainerRemoveOptions{Force: true})
 			if err != nil {
 				fmt.Println(err)
 			}

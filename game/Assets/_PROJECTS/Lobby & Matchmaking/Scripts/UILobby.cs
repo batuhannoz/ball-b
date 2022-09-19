@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -35,7 +35,8 @@ public class UILobby : MonoBehaviour
 
     private IEnumerator HostPublicRequest()
     {
-        var postRequest = CreateRequest("http://52.29.249.251:3000/host_public", RequestType.GET, null);
+        
+        var postRequest = CreateRequest("http://18.185.12.220:3000/host_public", RequestType.GET, null);
         yield return postRequest.SendWebRequest();
         var res = JsonUtility.FromJson<MatchData>(postRequest.downloadHandler.text);
         Debug.Log(res.match_id);
@@ -51,7 +52,7 @@ public class UILobby : MonoBehaviour
 
     private IEnumerator HostPrivateRequest()
     {
-        var postRequest = CreateRequest("http://52.29.249.251:3000/host_private", RequestType.GET, null);
+        var postRequest = CreateRequest("http://18.185.12.220:3000/host_private", RequestType.GET, null);
         yield return postRequest.SendWebRequest();
         var res = JsonUtility.FromJson<MatchData>(postRequest.downloadHandler.text);
         Debug.Log(res.match_id);
@@ -66,7 +67,7 @@ public class UILobby : MonoBehaviour
 
     private IEnumerator SearchRequest()
     {
-        var postRequest = CreateRequest("http://52.29.249.251:3000/search_match", RequestType.POST, null);
+        var postRequest = CreateRequest("http://18.185.12.220:3000/search_match", RequestType.POST, null);
         yield return postRequest.SendWebRequest();
         var res = JsonUtility.FromJson<MatchData>(postRequest.downloadHandler.text);
         Debug.Log(res.port);
@@ -82,7 +83,7 @@ public class UILobby : MonoBehaviour
 
     private IEnumerator JoinRequest(JoinMatchRequest dataToPost)
     {
-        var postRequest = CreateRequest("http://52.29.249.251:3000/join_match", RequestType.POST, dataToPost);
+        var postRequest = CreateRequest("http://18.185.12.220:3000/join_match", RequestType.POST, dataToPost);
         yield return postRequest.SendWebRequest();
         var res = JsonUtility.FromJson<MatchData>(postRequest.downloadHandler.text);
         Debug.Log(res.match_id);
