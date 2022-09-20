@@ -5,6 +5,7 @@ using Mirror;
 
 public class PlayerController : NetworkBehaviour
 {
+    [SyncVar (hook = nameof(OnColorChange))] public Color32 PlayerColor;
     [SerializeField] GameObject PlayerShootCircle;
     [SerializeField] float MovementSpeed = 16f;
     [SerializeField] float Friction = 300f;
@@ -62,4 +63,8 @@ public class PlayerController : NetworkBehaviour
         CmdShoot();
     }
     #endregion
+
+    public void OnColorChange(Color32 oldColor, Color32 newColor) {
+        gameObject.GetComponent<SpriteRenderer>().color = newColor;
+    }
 }

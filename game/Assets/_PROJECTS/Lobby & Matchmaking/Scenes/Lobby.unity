@@ -2108,12 +2108,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
   runInBackground: 1
-  autoStartServerBuild: 1
+  autoStartServerBuild: 0
   serverTickRate: 30
   offlineScene: Assets/_PROJECTS/Lobby & Matchmaking/Scenes/Lobby.unity
   onlineScene: Assets/_PROJECTS/Lobby & Matchmaking/Scenes/Game.unity
   transport: {fileID: 1427875672}
-  networkAddress: localhost
+  networkAddress: 18.185.12.220
   maxConnections: 100
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 4506332797500398616, guid: 27a9f4204a430014584922f679b50008, type: 3}

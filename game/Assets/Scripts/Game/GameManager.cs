@@ -25,8 +25,6 @@ public class GameManager : NetworkBehaviour
 
     private string MatchID;
 
-
-
     public void OnLeftScoreChange(int oldScore, int newScore)
     {
         LeftTMPro.text = newScore.ToString();
@@ -41,7 +39,6 @@ public class GameManager : NetworkBehaviour
     {
         if (players.Count == 1)
         {
-            Debug.Log("closing container");
             StartCoroutine(ContainerClose(new MatchData { match_id = MatchID }));
         }
         players.Remove(players.Find(x => x == playerObject));
@@ -57,6 +54,29 @@ public class GameManager : NetworkBehaviour
     public void AddPlayer(GameObject playerObject)
     {
         players.Add(playerObject);
+        if (players.Count == 2) {
+            Ball.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            Ball.transform.position = new Vector3(0, 0, -1);
+            RightScore = 0;
+            LeftScore = 0;
+            for (int i = 0; i < players.Count; i++){
+                if (i % 2 == 0){
+                    players[i].GetComponent<PlayerController>().PlayerColor = new Color32(72,92,192,255);
+                    players[i].transform.position = LeftSpawnPoint.position;
+                } else {
+                    players[i].GetComponent<PlayerController>().PlayerColor = new Color32(192,64,74,255);
+                    players[i].transform.position = RightSpawnPoint.position;
+                }
+            }
+        } else {
+            if (players.Count % 2 == 1) {
+                playerObject.GetComponent<PlayerController>().PlayerColor = new Color32(72,92,192,255);
+                playerObject.transform.position = LeftSpawnPoint.position;
+            } else {
+                playerObject.GetComponent<PlayerController>().PlayerColor = new Color32(192,64,74,255);
+                playerObject.transform.position = RightSpawnPoint.position;
+            }
+        }
     }
 
     public void IncreaseRight()

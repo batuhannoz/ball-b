@@ -10,7 +10,8 @@ public class MatchIDText : NetworkBehaviour
     public string MatchID;
 
     [SerializeField] TextMeshProUGUI MatchID_UI;
-
+    
+    [ClientCallback]
     void OnMatchIDChange(string oldID, string newID) {
         MatchID_UI.text = newID;
     } 
