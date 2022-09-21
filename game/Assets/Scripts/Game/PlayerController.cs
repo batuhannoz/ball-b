@@ -6,6 +6,8 @@ using Mirror;
 public class PlayerController : NetworkBehaviour
 {
     [SyncVar (hook = nameof(OnColorChange))] public Color32 PlayerColor;
+    [SerializeField] AudioSource ShootAudioSource;
+    [SerializeField] AudioClip ShootAudioClip;
     [SerializeField] GameObject PlayerShootCircle;
     [SerializeField] float MovementSpeed = 16f;
     [SerializeField] float Friction = 300f;
@@ -16,7 +18,7 @@ public class PlayerController : NetworkBehaviour
     private Rigidbody2D rb;
 
     #region Server
-    [Server]
+    [ServerCallback]
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -27,6 +29,11 @@ public class PlayerController : NetworkBehaviour
     private void CmdShoot()
     {
         PlayerShoot.Shoot();
+    }
+    
+    [ClientRpc]
+    public void RpcPlayAudio() {
+        ShootAudioSource.PlayOneShot(ShootAudioClip);
     }
 
     [Command]
@@ -51,13 +58,13 @@ public class PlayerController : NetworkBehaviour
     #endregion
 
     #region Client
-    [Client]
+    [ClientCallback]
     public void Move(Vector2 NewMoveDirection)
     {
         CmdMove(NewMoveDirection);
     }
 
-    [Client]
+    [ClientCallback]
     public void Shoot()
     {
         CmdShoot();

@@ -8,7 +8,8 @@ using TMPro;
 
 public class GameManager : NetworkBehaviour
 {
-
+    [SerializeField] AudioSource ShootAudioSource;
+    [SerializeField] AudioClip ShootAudioClip;
     public class MatchData
     {
         public string match_id;
@@ -78,17 +79,24 @@ public class GameManager : NetworkBehaviour
             }
         }
     }
-
+    [ServerCallback]
     public void IncreaseRight()
     {
+        RpcPlayAudio();
         RightScore++;
         restartGame();
     }
-
+    [ServerCallback]
     public void IncreaseLeft()
     {
+        RpcPlayAudio();
         LeftScore++;
         restartGame();
+    }
+
+    [ClientRpc]
+    public void RpcPlayAudio() {
+        ShootAudioSource.PlayOneShot(ShootAudioClip);
     }
 
     private void restartGame()

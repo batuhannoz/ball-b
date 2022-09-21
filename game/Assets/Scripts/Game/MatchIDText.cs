@@ -13,6 +13,6 @@ public class MatchIDText : NetworkBehaviour
     
     [ClientCallback]
     void OnMatchIDChange(string oldID, string newID) {
-        MatchID_UI.text = newID;
+        MatchID_UI.SetText(newID);
     } 
 }

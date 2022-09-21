@@ -26,3 +26,9 @@ docker run -d -p 3000:3000 backend
 ```bash
 docker rm -f $(docker ps -a -q)
 ```
+
+#### Send Game Files To Server
+```bash
+put -R /home/batuhan/Desktop/ball-b/builds/linux_server .
+```
+
