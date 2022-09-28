@@ -4,6 +4,9 @@
 
 ![](https://github.com/batuhannoz/ball-b/blob/main/pictures/GameScreenshot.png)
 
+![](https://github.com/batuhannoz/ball-b/blob/main/pictures/LobbyScreenshot.png)
+
+
 ### Unity Documentation
 
 [Netcode Documentation](https://docs-multiplayer.unity3d.com/netcode/current/about)
