@@ -9,9 +9,9 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] AudioSource ShootAudioSource;
     [SerializeField] AudioClip ShootAudioClip;
     [SerializeField] GameObject PlayerShootCircle;
-    [SerializeField] float MovementSpeed = 16f;
+    [SerializeField] float MovementSpeed = 20f;
     [SerializeField] float Friction = 300f;
-    [SerializeField] float MaxSpeed = 2.7f;
+    [SerializeField] float MaxSpeed = 2.8f;
     private Vector2 MoveDirection;
     private FixedJoystick joystick;
     private PlayerShoot PlayerShoot;
@@ -43,9 +43,9 @@ public class PlayerController : NetworkBehaviour
     }
 
     [ServerCallback]
-    private void Update()
+    private void FixedUpdate()
     {
-        rb.AddRelativeForce(MoveDirection * Time.deltaTime * MovementSpeed, ForceMode2D.Impulse);
+        rb.AddForce(MoveDirection * Time.fixedDeltaTime * MovementSpeed, ForceMode2D.Impulse);
         if (rb.velocity.magnitude > 0)
         {
             rb.AddForce(-rb.velocity * Friction * Time.deltaTime);

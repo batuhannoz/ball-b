@@ -11,11 +11,12 @@ GameObject:
   - component: {fileID: 4506332797500398621}
   - component: {fileID: 4506332797500398620}
   - component: {fileID: 4506332797500398619}
-  - component: {fileID: 5084612366442530744}
   - component: {fileID: 4506332797500398618}
   - component: {fileID: 4506332797500398617}
   - component: {fileID: 4506332797500398622}
   - component: {fileID: 4611188974804544558}
+  - component: {fileID: 4592322514331553141}
+  - component: {fileID: 5115828180036732237}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -108,40 +109,6 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 27a9f4204a430014584922f679b50008
   hasSpawned: 0
---- !u!114 &5084612366442530744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4506332797500398616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0
-  clientAuthority: 0
-  sendInterval: 0.05
-  syncPosition: 1
-  syncRotation: 1
-  syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 0
-  bufferTimeMultiplier: 1
-  bufferSizeLimit: 64
-  catchupThreshold: 4
-  catchupMultiplier: 0.1
-  onlySyncOnChange: 1
-  bufferResetMultiplier: 5
-  positionSensitivity: 0.01
-  rotationSensitivity: 0.01
-  scaleSensitivity: 0.01
-  showGizmos: 0
-  showOverlay: 0
-  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
 --- !u!114 &4506332797500398618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,9 +129,9 @@ MonoBehaviour:
   ShootAudioSource: {fileID: 4611188974804544558}
   ShootAudioClip: {fileID: 8300000, guid: 52260850c285264abb73fb19a7231a30, type: 3}
   PlayerShootCircle: {fileID: 4506332798465762106}
-  MovementSpeed: 11
-  Friction: 300
-  MaxSpeed: 2.7
+  MovementSpeed: 24
+  Friction: 374
+  MaxSpeed: 3
 --- !u!58 &4506332797500398617
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -298,6 +265,62 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4592322514331553141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4506332797500398616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2cbc52526ea384ba280d13cd1a57b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  target: {fileID: 4506332797500398622}
+  clientAuthority: 0
+  syncVelocity: 1
+  clearVelocity: 0
+  velocitySensitivity: 0.1
+  syncAngularVelocity: 1
+  clearAngularVelocity: 0
+  angularVelocitySensitivity: 0.1
+--- !u!114 &5115828180036732237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4506332797500398616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  sendInterval: 0.05
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 0
+  bufferTimeMultiplier: 1
+  bufferSizeLimit: 64
+  catchupThreshold: 4
+  catchupMultiplier: 0.1
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 5
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
 --- !u!1 &4506332798465762106
 GameObject:
   m_ObjectHideFlags: 0

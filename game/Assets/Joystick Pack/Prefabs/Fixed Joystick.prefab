@@ -91,7 +91,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HELLO: 
   handleRange: 1
   deadZone: 0
   axisOptions: 0
@@ -111,7 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a18e5a291e0811409ea4e5055443fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HELLO: 
   handleRange: 1
   deadZone: 0
   axisOptions: 0
@@ -119,7 +117,6 @@ MonoBehaviour:
   snapY: 0
   background: {fileID: 0}
   handle: {fileID: 0}
-  a: 
   JoystickBack: {fileID: 0}
   JoystickHandle: {fileID: 0}
 --- !u!1 &2929252285020697097

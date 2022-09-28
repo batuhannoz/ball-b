@@ -5,12 +5,12 @@ using Mirror;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-
 public class PlayerJoystick : Joystick
 {      
     [SerializeField] Image JoystickBack;
     [SerializeField] Image JoystickHandle;
     private PlayerController player;
+
     [ClientCallback]
     void Update()
     {   
@@ -26,6 +26,7 @@ public class PlayerJoystick : Joystick
             }
         }
     }
+    
     [ClientCallback]
     public override void OnPointerDown(PointerEventData eventData)
     {JoystickBack.color = new Color32(255,255,255,50);

@@ -6,9 +6,12 @@ using UnityEngine.UI;
 using Mirror;
 using UnityEngine.Networking;
 using System.Text;
+using TMPro;
 
 public class UILobby : MonoBehaviour
 {
+    [SerializeField] GameObject errorMsg;
+    [SerializeField] GameObject loadingScreen;
     public class MatchData
     {
         public string match_id;
@@ -30,6 +33,7 @@ public class UILobby : MonoBehaviour
     public void HostPublic()
     {
         Debug.Log("--- Host Public ---");
+        loadingScreen.SetActive(true);
         StartCoroutine(HostPublicRequest());
     }
 
@@ -39,6 +43,12 @@ public class UILobby : MonoBehaviour
         var postRequest = CreateRequest("http://18.185.12.220:3000/host_public", RequestType.GET, null);
         yield return postRequest.SendWebRequest();
         var res = JsonUtility.FromJson<MatchData>(postRequest.downloadHandler.text);
+        if (res == null) {
+            yield return new WaitForSeconds(2);
+            loadingScreen.SetActive(false);    
+            StartCoroutine(SendErrorMessage());
+            yield return null;
+        }
         Debug.Log(res.match_id);
         GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<TelepathyTransport>().port = (ushort)res.port;
         GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManager>().StartClient();
@@ -47,6 +57,7 @@ public class UILobby : MonoBehaviour
     public void HostPrivate()
     {
         Debug.Log("--- HostPrivate ---");
+        loadingScreen.SetActive(true);
         StartCoroutine(HostPrivateRequest());
     }
 
@@ -55,6 +66,13 @@ public class UILobby : MonoBehaviour
         var postRequest = CreateRequest("http://18.185.12.220:3000/host_private", RequestType.GET, null);
         yield return postRequest.SendWebRequest();
         var res = JsonUtility.FromJson<MatchData>(postRequest.downloadHandler.text);
+        if (res == null) {
+            yield return new WaitForSeconds(2);
+            loadingScreen.SetActive(false);    
+            StartCoroutine(SendErrorMessage());  
+
+            yield return null;
+        }
         Debug.Log(res.match_id);
         GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<TelepathyTransport>().port = (ushort)res.port;
         GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManager>().StartClient();
@@ -63,6 +81,8 @@ public class UILobby : MonoBehaviour
     public void SearchGame()
     {
         Debug.Log("--- SearchGame ---");
+        // loadingScreen.SetActive(true);
+
     }
 
     private IEnumerator SearchRequest()
@@ -70,6 +90,13 @@ public class UILobby : MonoBehaviour
         var postRequest = CreateRequest("http://18.185.12.220:3000/search_match", RequestType.POST, null);
         yield return postRequest.SendWebRequest();
         var res = JsonUtility.FromJson<MatchData>(postRequest.downloadHandler.text);
+        if (res == null) {
+            yield return new WaitForSeconds(2);
+            loadingScreen.SetActive(false);  
+            StartCoroutine(SendErrorMessage());  
+  
+            yield return null;
+        }
         Debug.Log(res.port);
         Debug.Log(res.match_id);
     }
@@ -78,6 +105,7 @@ public class UILobby : MonoBehaviour
     {
         Debug.Log("--- JoinGame ---");
         Debug.Log("---  \"" + joinMatchInput.text + "\" ---");
+        loadingScreen.SetActive(true);
         StartCoroutine(JoinRequest(new JoinMatchRequest() { match_id = joinMatchInput.text }));
     }
 
@@ -86,6 +114,12 @@ public class UILobby : MonoBehaviour
         var postRequest = CreateRequest("http://18.185.12.220:3000/join_match", RequestType.POST, dataToPost);
         yield return postRequest.SendWebRequest();
         var res = JsonUtility.FromJson<MatchData>(postRequest.downloadHandler.text);
+        if (res == null) {
+            yield return new WaitForSeconds(2);
+            loadingScreen.SetActive(false);  
+            StartCoroutine(SendErrorMessage());  
+            yield return null;
+        }
         Debug.Log(res.match_id);
         GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<TelepathyTransport>().port = (ushort)res.port;
         GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkManager>().StartClient();
@@ -93,6 +127,13 @@ public class UILobby : MonoBehaviour
 
     // ------------------------------------------------------------------------------------------------------
 
+    IEnumerator SendErrorMessage()
+    {
+        errorMsg.SetActive(true);
+        yield return new WaitForSeconds(3);
+        errorMsg.SetActive(false);
+    }
+    
     private UnityWebRequest CreateRequest(string path, RequestType type = RequestType.GET, object data = null)
     {
         var request = new UnityWebRequest(path, type.ToString());

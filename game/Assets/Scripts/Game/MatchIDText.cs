@@ -4,15 +4,19 @@ using UnityEngine;
 using Mirror;
 using TMPro;
 
-public class MatchIDText : NetworkBehaviour
+public class MatchIDText : MonoBehaviour
 {
-    [SyncVar(hook = nameof(OnMatchIDChange))]
-    public string MatchID;
-
     [SerializeField] TextMeshProUGUI MatchID_UI;
-    
-    [ClientCallback]
-    void OnMatchIDChange(string oldID, string newID) {
-        MatchID_UI.SetText(newID);
-    } 
+
+    public string MatchID
+    {
+        get { return _MatchID; }
+        set
+        {
+            _MatchID = value;
+            MatchID_UI.SetText("Match ID: "+value);
+
+        }
+    }
+    private string _MatchID;
 }

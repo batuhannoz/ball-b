@@ -24,6 +24,7 @@ public class GameManager : NetworkBehaviour
     [SyncVar(hook = nameof(OnRightScoreChange))] int RightScore = 0;
     List<GameObject> players = new List<GameObject>();
 
+    [SyncVar (hook = nameof(RpcMatchIDChange))]
     private string MatchID;
 
     public void OnLeftScoreChange(int oldScore, int newScore)
@@ -126,11 +127,14 @@ public class GameManager : NetworkBehaviour
     [ServerCallback]
     private IEnumerator ContainerReady()
     {
-        var postRequest = CreateRequest("http://18.185.12.220:3000/ready", RequestType.GET, null);
+      var postRequest = CreateRequest("http://18.185.12.220:3000/ready", RequestType.GET, null);
         yield return postRequest.SendWebRequest();
         var res = JsonUtility.FromJson<MatchData>(postRequest.downloadHandler.text);
         MatchID = res.match_id;
-        matchIDChange.MatchID = res.match_id;
+    }
+
+    void RpcMatchIDChange(string oldID, string newID) {
+        matchIDChange.MatchID = newID;
     }
 
     private UnityWebRequest CreateRequest(string path, RequestType type = RequestType.GET, object data = null)

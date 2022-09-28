@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu-debootstrap
 
 RUN useradd -ms /bin/bash unity
 WORKDIR /home/unity
