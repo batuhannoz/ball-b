@@ -2,10 +2,7 @@
 
 2D online soccer game
 
-https://github.com/batuhannoz/ball-b/blob/main/pictures/GameScreenshot.png
-
 ![](https://github.com/batuhannoz/ball-b/blob/main/pictures/GameScreenshot.png)
-
 
 ### Unity Documentation
 
