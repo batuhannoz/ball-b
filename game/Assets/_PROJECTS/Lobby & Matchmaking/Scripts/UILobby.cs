@@ -30,6 +30,10 @@ public class UILobby : MonoBehaviour
 
     [SerializeField] InputField joinMatchInput;
 
+    public void CancelSearchGame() {
+        loadingScreen.SetActive(false);
+    }
+
     public void HostPublic()
     {
         Debug.Log("--- Host Public ---");

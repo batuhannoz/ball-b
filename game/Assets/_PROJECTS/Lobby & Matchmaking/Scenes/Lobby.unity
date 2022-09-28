@@ -800,7 +800,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Searching
+  m_Text: Connecting
 --- !u!222 &564814316
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1640,7 +1640,6 @@ GameObject:
   - component: {fileID: 1427875673}
   - component: {fileID: 1427875668}
   - component: {fileID: 1427875674}
-  - component: {fileID: 1427875675}
   m_Layer: 0
   m_Name: --- NetworkManager
   m_TagString: NetworkManager
@@ -1691,8 +1690,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
   runInBackground: 1
-  autoStartServerBuild: 1
-  serverTickRate: 30
+  autoStartServerBuild: 0
+  serverTickRate: 60
   offlineScene: Assets/_PROJECTS/Lobby & Matchmaking/Scenes/Lobby.unity
   onlineScene: Assets/_PROJECTS/Lobby & Matchmaking/Scenes/Game.unity
   transport: {fileID: 1427875674}
@@ -1727,20 +1726,6 @@ MonoBehaviour:
   clientMaxReceivesPerTick: 1000
   clientSendQueueLimit: 10000
   clientReceiveQueueLimit: 10000
---- !u!114 &1427875675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1427875667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offsetX: 0
-  offsetY: 0
 --- !u!1 &1439530129
 GameObject:
   m_ObjectHideFlags: 0
