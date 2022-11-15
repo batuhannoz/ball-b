@@ -10,8 +10,6 @@
 
 [Netcode Documentation](https://docs-multiplayer.unity3d.com/netcode/current/about)
 
-[Netcode Multiplayer](https://www.youtube.com/watch?v=stJ4SESQwJQ&t=130s)
-
 ### YouTube Tutorials
 
 [Netcode Multiplayer](https://www.youtube.com/watch?v=stJ4SESQwJQ&t=130s)
